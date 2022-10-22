@@ -169,8 +169,30 @@ main {
   color: var(--color-details);
 }
 
-.todo__delete {
+.todo__order {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
   margin-left: auto;
+  font-size: 1.2rem;
+  color: var(--color-accent);
+}
+
+.todo__order i {
+  height: 20px;
+  aspect-ratio: 1/1;
+  padding: 0 0.25rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: var(--transition);
+}
+
+.todo__order i:hover {
+  color: var(--color-text);
+}
+
+.todo__delete {
   cursor: pointer;
   font-size: 1.1rem;
   color: var(--color-accent);
@@ -222,4 +244,21 @@ main {
 
 .info__filter:hover {
   color: var(--color-accent);
+}
+
+
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+footer a {
+  color: var(--color-accent);
+  transition: var(--transition);
+}
+
+footer a:hover {
+  letter-spacing: 2px;
 }

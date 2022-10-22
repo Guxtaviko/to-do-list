@@ -117,12 +117,65 @@ const renderTodos = (filter: string) => {
             break;
     }
 
+    createOrdering(filtered)
+
     filtered.forEach(todo => {
         container.appendChild(todo)
     })
 
     if(left > 1) remaining.innerHTML = `${left} items left`
     else remaining.innerHTML = `${left} item left`
-
 }
 
+const createOrdering = (todos: Element[]) => {
+    todos.forEach(todo => {
+        // Remove existing order
+        if (todo.querySelector('.todo__order')) todo.removeChild(todo.querySelector('.todo__order')!)
+
+        const buttons = document.createElement('div')
+        buttons.classList.add('todo__order')
+
+        const position = todos.indexOf(todo)
+        // Not first element
+        if(position != 0) {
+            let sameType = true
+            if(todo.classList.contains('done') && !todos[position-1].classList.contains('done')) sameType = false
+            if(!todo.classList.contains('done') && todos[position-1].classList.contains('done')) sameType = false
+
+            if (sameType) {
+                const up = document.createElement('i')
+                up.classList.add('uil', 'uil-angle-up')
+
+                up.addEventListener('click', () => {
+                    todos.splice(position, 1)
+                    todos.splice(position-1, 0, todo)
+                    renderTodos(activeFilter)
+                })
+
+                buttons.appendChild(up)
+            }
+        }
+
+        // Not last element
+        if(position != todos.length - 1) {
+            let sameType = true
+            if(todo.classList.contains('done') && !todos[position+1].classList.contains('done')) sameType = false
+            if(!todo.classList.contains('done') && todos[position+1].classList.contains('done')) sameType = false
+
+            if (sameType) {            
+                const down = document.createElement('i')
+                down.classList.add('uil', 'uil-angle-down')
+
+                down.addEventListener('click', () => {
+                    todos.splice(position, 1)
+                    todos.splice(position+1, 0, todo)
+                    renderTodos(activeFilter)
+                })
+
+                buttons.appendChild(down)
+            }
+        }
+
+        todo.insertBefore(buttons, todo.children[todo.children.length-1])
+    })
+}
