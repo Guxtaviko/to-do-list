@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Unicons -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <script type="module" src="/src/main.ts" defer></script>
+
+    <title>To Do List</title>
+  </head>
+  <body>
+    <div class="title container">
+      <h1>To do list</h1>
+    </div>
+    <form class="todo__form container" autocomplete="off">
+      <input type="text" name="new" id="new" placeholder="Create a new to do...">
+      <button type="submit"><i class="uil uil-plus"></i></button>
+    </form>
+    <main class="container">
+      <div class="todos">
+      </div>
+      <div class="info">
+        <div class="info__left">
+          <span>0 item left</span>
+        </div>
+        <div class="info__filters">
+          <button class="info__filter" disabled>All</button>
+          <button class="info__filter">Active</button>
+          <button class="info__filter">Complete</button>
+        </div>
+        <div class="info__clear">
+          <button class="clear">Clear Completed</button>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

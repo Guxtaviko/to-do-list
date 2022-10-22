@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+:root {
+  --color-bg: #14131B;
+  --color-text: #eee;
+  
+  --color-primary: #23222A;
+  --color-accent: #A3FFAE; 
+  --color-details: #807C92;
+
+  --transition: all 400ms ease;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 100vh;
+
+  background: var(--color-bg);
+  font-family: 'Poppins', sans-serif;
+  color: var(--color-text);
+}
+
+div {
+  display: block;
+}
+
+.container {
+  width: 90%;
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+.title {
+  text-align: center;
+  font-size: 1.35rem;
+  text-transform: uppercase;
+}
+
+.todo__form {
+  display: flex;
+  background: var(--color-primary);
+}
+
+.todo__form input {
+  font-family: 'Poppins', sans-serif;
+  color: var(--color-text);
+  padding: 1rem;
+  flex-grow: 1;
+  font-size: 1rem;
+}
+
+.todo__form input::placeholder {
+  color: var(--color-details);
+}
+
+.todo__form button {
+  padding: 1rem;
+  background: var(--color-accent);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.todo__form button:hover {
+  filter: brightness(0.75);
+}
+
+.todo__form button i {
+  font-size: 1.25rem;
+  font-weight: 200;
+}
+
+main {
+  background: var(--color-primary);
+}
+
+.todos {
+  display: flex;
+  flex-direction: column;
+}
+
+.todo {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--color-details);
+  gap: 0.75rem;
+  padding-inline: 0.75rem;
+}
+
+.todo__status {
+  display: grid;
+  place-items: center;
+  padding-left: 1rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.todo__status input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.todo__status .checkmark {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--color-details);
+  transition: var(--transition);
+}
+
+.todo__status .checkmark:hover {
+  border-color: var(--color-text);
+}
+
+.todo__status input:checked ~ .checkmark {
+  background: var(--color-accent);
+  border: none;
+}
+
+.todo__status .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.todo__status input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.todo__status .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--color-bg);
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.todo__item {
+  font-size: 1rem;
+  padding: 1rem 0.75rem;
+}
+
+.todo.done .todo__item{
+  text-decoration: line-through;
+  color: var(--color-details);
+}
+
+.todo__delete {
+  margin-left: auto;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: var(--color-accent);
+  transition: var(--transition);
+}
+
+.todo__delete:hover {
+  color: var(--color-text);
+}
+
+.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+}
+
+.info__left, .info__clear > button {
+  color: var(--color-details);
+  font-size: 0.9rem;
+}
+
+.info__clear > button {
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.info__clear:hover > button {
+  color: var(--color-text);
+}
+
+.info__filters {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-inline: auto;
+}
+
+.info__filter {
+  color: var(--color-text);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.info__filter:disabled {
+  color: var(--color-accent);
+}
+
+.info__filter:hover {
+  color: var(--color-accent);
+}
