@@ -6,7 +6,6 @@ const remaining = document.querySelector('.info__left') as HTMLElement
 const clear = document.querySelector('.clear') as HTMLButtonElement
 
 let todos: Element[] = [] 
-let storedTodos: string[] = JSON.parse(localStorage.getItem("storedTodos")!) || []
 let activeFilter = 'all'
 
 const filters = document.querySelectorAll('.info__filter') 
@@ -47,7 +46,6 @@ const createTodo = (text: string) => {
     createDelete(todo)
 
     todos.unshift(todo)
-    if(!storedTodos.includes(text)) storedTodos.unshift(text)
 
     filters.forEach(filter => {if(filter.hasAttribute('disabled')) filter.removeAttribute('disabled')})
     document.querySelector('.info__filter')?.setAttribute('disabled', '')
@@ -67,12 +65,19 @@ const createStatus = (todo: Element) => {
     checkmark.classList.add('checkmark')
     checkmark.addEventListener('click', () => {
         if (!checkbox.checked) {
+            // Reorder todo
+            todos.splice(todos.indexOf(todo), 1)
+            todos.push(todo)
+
             todo.classList.add('done') 
-            renderTodos(activeFilter)
         } else if (todo.classList.contains('done')) {
+            // Reorder todo
+            todos.splice(todos.indexOf(todo), 1)
+            todos.unshift(todo)
+
             todo.classList.remove('done')
-            renderTodos(activeFilter)
         }
+        renderTodos(activeFilter)
     })
 
     status.appendChild(checkbox)
@@ -88,9 +93,6 @@ const createDelete = (todo: Element) => {
 
     deleteBtn.addEventListener('click', () => {
         todos.splice(todos.indexOf(todo), 1)
-        storedTodos.splice(
-            storedTodos.indexOf(todo.querySelector('.todo__item')!.innerHTML), 1
-        )
         renderTodos(activeFilter)
     })
 
@@ -122,9 +124,5 @@ const renderTodos = (filter: string) => {
     if(left > 1) remaining.innerHTML = `${left} items left`
     else remaining.innerHTML = `${left} item left`
 
-    localStorage.setItem('storedTodos', JSON.stringify(storedTodos))
 }
 
-storedTodos.forEach(todo => {
-    createTodo(todo)
-})
